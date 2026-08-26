@@ -42,41 +42,33 @@ RUN curl --fail --silent --show-error https://get.sdkman.io | bash
 # SDKMAN lists Maven releases newest first; select its newest stable 3.x
 # candidate at build time rather than pinning an individual release.
 RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
-    && candidate="$(sdk list maven | awk -F'|' '\
+    && candidate="$(sdk list maven | awk '\
       { for (i = 1; i <= NF; i++) { \
-          item = $i; \
-          gsub(/^[[:space:]]+|[[:space:]]+$/, "", item); \
-          if (item ~ /^3\.[0-9]+\.[0-9]+$/) { print item; exit } \
+          if ($i ~ /^3\.[0-9]+\.[0-9]+$/) { print $i; exit } \
         } }')" \
     && test -n "$candidate" \
     && sdk install maven "$candidate"
 
 RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
-    && candidate="$(sdk list java | awk -F'|' '\
+    && candidate="$(sdk list java | awk '\
       { for (i = 1; i <= NF; i++) { \
-          item = $i; \
-          gsub(/^[[:space:]]+|[[:space:]]+$/, "", item); \
-          if (item ~ /^8\./ && item ~ /-tem$/) { print item; exit } \
+          if ($i ~ /^8\./ && $i ~ /-tem$/) { print $i; exit } \
         } }')" \
     && test -n "$candidate" \
     && sdk install java "$candidate"
 
 RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
-    && candidate="$(sdk list java | awk -F'|' '\
+    && candidate="$(sdk list java | awk '\
       { for (i = 1; i <= NF; i++) { \
-          item = $i; \
-          gsub(/^[[:space:]]+|[[:space:]]+$/, "", item); \
-          if (item ~ /^21\./ && item ~ /-tem$/) { print item; exit } \
+          if ($i ~ /^21\./ && $i ~ /-tem$/) { print $i; exit } \
         } }')" \
     && test -n "$candidate" \
     && sdk install java "$candidate"
 
 RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
-    && candidate="$(sdk list java | awk -F'|' '\
+    && candidate="$(sdk list java | awk '\
       { for (i = 1; i <= NF; i++) { \
-          item = $i; \
-          gsub(/^[[:space:]]+|[[:space:]]+$/, "", item); \
-          if (item ~ /^25\./ && item ~ /-tem$/) { print item; exit } \
+          if ($i ~ /^25\./ && $i ~ /-tem$/) { print $i; exit } \
         } }')" \
     && test -n "$candidate" \
     && sdk install java "$candidate"
