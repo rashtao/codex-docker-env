@@ -1,0 +1,5 @@
+- migrate to podman, use docker inside podman, w/   -v /var/run/docker.sock:/var/run/docker.sock
+- git
+- maven
+- sudo
+- bubblewrap
