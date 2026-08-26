@@ -72,11 +72,24 @@ RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
     && test -n "$java_21" \
     && sdk default java "$java_21"
 
-RUN mkdir "/home/codex/.codex"
-
 USER root
 COPY entrypoint.sh /usr/local/bin/codex-entrypoint
-RUN chmod 0755 /usr/local/bin/codex-entrypoint
+RUN install -d --owner=codex --group=codex --mode=0700 /home/codex/.codex \
+    && printf '%s\n' \
+        'sandbox_mode = "danger-full-access"' \
+        'approval_policy = "never"' \
+        'model = "gpt-5.6-terra"' \
+        'model_reasoning_effort = "medium"' \
+        '' \
+        '[features]' \
+        'fast_mode = false' \
+        '' \
+        '[tui]' \
+        'status_line = ["model-with-reasoning", "run-state", "context-remaining", "five-hour-limit", "weekly-limit", "context-window-size", "total-input-tokens", "total-output-tokens", "task-progress", "approval-mode"]' \
+        > /home/codex/.codex/config.toml \
+    && chown codex:codex /home/codex/.codex/config.toml \
+    && chmod 0600 /home/codex/.codex/config.toml \
+    && chmod 0755 /usr/local/bin/codex-entrypoint
 
 ENTRYPOINT ["/usr/local/bin/codex-entrypoint"]
 CMD ["bash"]
