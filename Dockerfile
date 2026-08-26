@@ -72,6 +72,8 @@ RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
     && test -n "$java_21" \
     && sdk default java "$java_21"
 
+RUN mkdir "/home/codex/.codex"
+
 USER root
 COPY entrypoint.sh /usr/local/bin/codex-entrypoint
 RUN chmod 0755 /usr/local/bin/codex-entrypoint

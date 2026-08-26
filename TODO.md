@@ -3,3 +3,4 @@
 - maven
 - sudo
 - bubblewrap
+- document "codex --yolo"

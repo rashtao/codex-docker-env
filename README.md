@@ -20,17 +20,26 @@ Open the default Bash shell and mount the current directory as a workspace:
 
 ```sh
 docker run --rm -it \
-  -v "$PWD:/workspace" \
+  --userns=keep-id:uid=1000,gid=1000 \
+  -v "$HOME/.codex/auth.json:/home/codex/.codex/auth.json:Z" \
+  -v "$PWD:/workspace:Z" \
   -w /workspace \
   fedora-codex
 ```
+
+When `docker` is Podman's Docker-compatible CLI on Fedora, `--userns=keep-id`
+maps the invoking host user to the image's `codex` user (UID/GID 1000). This
+keeps bind-mounted files owned by `codex` in the container instead of mapping
+them to `root`. The option is Podman-specific.
 
 To use the host Docker daemon, also mount its socket. At startup the image
 adds `codex` to the socket's numeric group, so no root shell is needed:
 
 ```sh
 docker run --rm -it \
-  -v "$PWD:/workspace" \
+  --userns=keep-id:uid=1000,gid=1000 \
+  -v "$HOME/.codex/auth.json:/home/codex/.codex/auth.json:Z" \
+  -v "$PWD:/workspace:Z" \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -w /workspace \
   fedora-codex
@@ -38,28 +47,6 @@ docker run --rm -it \
 
 Mounting the Docker socket gives the container powerful control over the host
 Docker daemon; use it only with images and workloads you trust.
-
-## Authenticate Codex at runtime
-
-Provide an API key directly:
-
-```sh
-docker run --rm -it -e OPENAI_API_KEY fedora-codex codex --help
-```
-
-Or mount an existing Codex configuration directory:
-
-```sh
-docker run --rm -it \
-  -v "$HOME/.codex:/home/codex/.codex" \
-  fedora-codex codex --help
-```
-
-Run Codex with its full-permission mode only when you intentionally want it:
-
-```sh
-docker run --rm -it -e OPENAI_API_KEY fedora-codex codex -y "your prompt"
-```
 
 ## Quick checks
 
