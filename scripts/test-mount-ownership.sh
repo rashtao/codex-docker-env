@@ -11,7 +11,6 @@ mkdir "$workspace"
 printf '{"test":true}\n' > "$auth_file"
 
 docker run --rm \
-  --userns=keep-id:uid=1000,gid=1000 \
   -v "$auth_file:/home/codex/.codex/auth.json:Z" \
   -v "$workspace:/workspace:Z" \
   -w /workspace \
