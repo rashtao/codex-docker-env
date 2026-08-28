@@ -13,10 +13,12 @@ RUN dnf -y upgrade --refresh \
         git \
         nodejs \
         npm \
+        sudo \
         tar \
         unzip \
         which \
         zip \
+        jq \
     && dnf clean all \
     && rm -rf /var/cache/dnf
 
@@ -81,6 +83,8 @@ RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
 USER root
 COPY entrypoint.sh /usr/local/bin/codex-entrypoint
 RUN install -d --owner=codex --group=codex --mode=0700 /home/codex/.codex \
+    && printf '%s\n' 'codex ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/codex \
+    && chmod 0440 /etc/sudoers.d/codex \
     && printf '%s\n' \
         'sandbox_mode = "danger-full-access"' \
         'approval_policy = "never"' \
