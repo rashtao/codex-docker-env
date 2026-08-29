@@ -21,6 +21,7 @@ Open the default Bash shell and mount the current directory as a workspace:
 ```sh
 docker run --rm -it \
   -v "$HOME/.codex/auth.json:/home/codex/.codex/auth.json:z" \
+  -v "$HOME/.m2:/home/codex/.m2:z" \
   -v "$PWD:/workspace:Z" \
   -w /workspace \
   fedora-codex
@@ -33,6 +34,7 @@ To use a host Docker daemon, also mount its socket. At startup the image adds
 docker run --rm -it \
   --security-opt label=disable \
   -v "$HOME/.codex/auth.json:/home/codex/.codex/auth.json:z" \
+  -v "$HOME/.m2:/home/codex/.m2:z" \
   -v "$PWD:/workspace:Z" \
   -v /var/run/docker.sock:/var/run/docker.sock:z \
   -w /workspace \
