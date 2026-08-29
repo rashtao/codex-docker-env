@@ -19,6 +19,12 @@ RUN dnf -y upgrade --refresh \
         which \
         zip \
         jq \
+        python3.13  \
+        python3.13-devel \
+        gcc \
+        gcc-c++ \
+        make \
+        git \
     && dnf clean all \
     && rm -rf /var/cache/dnf
 
