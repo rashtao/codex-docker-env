@@ -39,8 +39,10 @@ USER codex
 WORKDIR /home/codex
 
 # npm is deliberately installed from its upstream registry, rather than a
-# Fedora package, so `codex` follows the current published CLI release.
-RUN npm install --global @openai/codex
+# Fedora package, so the CLIs follow their current published releases.
+RUN npm install --global \
+    @openai/codex \
+    @fission-ai/openspec@latest
 
 # Resolve identifiers when building, rather than pinning JDK patch releases.
 # `sdk list java` is ordered with the newest compatible release first. Each

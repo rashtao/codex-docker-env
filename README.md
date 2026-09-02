@@ -2,7 +2,8 @@
 
 An empty-project development image based on `fedora:latest`.  It starts an
 interactive Bash shell as the unprivileged `codex` user and includes Docker
-CLI, Node.js/npm, the OpenAI Codex CLI, SDKMAN, and Temurin JDKs 8, 21, and 25.
+CLI, Node.js/npm, the OpenAI Codex CLI, the OpenSpec CLI, SDKMAN, and Temurin
+JDKs 8, 21, and 25.
 Java 21 is the SDKMAN default.
 
 ## Build
@@ -49,6 +50,7 @@ Inside the container:
 docker --version
 npm --version
 codex --version
+openspec --version
 npm config get prefix
 sdk version
 sdk list java | grep -i temurin
