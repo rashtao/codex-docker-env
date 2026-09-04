@@ -42,7 +42,8 @@ WORKDIR /home/codex
 # Fedora package, so the CLIs follow their current published releases.
 RUN npm install --global \
     @openai/codex \
-    @fission-ai/openspec@latest
+    @fission-ai/openspec \
+    codebase-memory-mcp
 
 # Resolve identifiers when building, rather than pinning JDK patch releases.
 # `sdk list java` is ordered with the newest compatible release first. Each
@@ -96,7 +97,7 @@ RUN install -d --owner=codex --group=codex --mode=0700 /home/codex/.codex \
     && printf '%s\n' \
         'sandbox_mode = "danger-full-access"' \
         'approval_policy = "never"' \
-        'model = "gpt-5.6-terra"' \
+        'model = "gpt-5.6-luna"' \
         'model_reasoning_effort = "medium"' \
         '' \
         '[features]' \
