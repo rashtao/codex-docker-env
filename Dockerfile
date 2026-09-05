@@ -32,6 +32,7 @@ RUN useradd --create-home --shell /bin/bash codex \
     && install -d --owner=codex --group=codex /home/codex/.npm-global
 
 ENV SDKMAN_DIR=/home/codex/.sdkman \
+    CBM_CACHE_DIR=/workspace/.codebase-memory-mcp \
     NPM_CONFIG_PREFIX=/home/codex/.npm-global \
     PATH=/home/codex/.npm-global/bin:/home/codex/.sdkman/candidates/java/current/bin:/home/codex/.sdkman/candidates/maven/current/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
