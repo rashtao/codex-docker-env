@@ -39,6 +39,12 @@ ENV SDKMAN_DIR=/home/codex/.sdkman \
 USER codex
 WORKDIR /home/codex
 
+ENV GIT_USER_NAME=codex
+ENV GIT_USER_EMAIL=codex@localhost
+RUN git config --global user.name "$GIT_USER_NAME" \
+    && git config --global user.email "$GIT_USER_EMAIL" \
+    && git config --global --add safe.directory /workspace
+
 # npm is deliberately installed from its upstream registry, rather than a
 # Fedora package, so the CLIs follow their current published releases.
 RUN npm install --global \

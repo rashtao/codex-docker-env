@@ -27,4 +27,13 @@ docker run --rm \
     printf "workspace write from container\n" > /workspace/container-write.txt
     printf "Workspace file contents: "
     cat /workspace/container-write.txt
+
+    git init --quiet /tmp/git-commit-test
+    cd /tmp/git-commit-test
+    git config user.name >/dev/null
+    git config user.email >/dev/null
+    printf "commit test\n" > commit-test.txt
+    git add commit-test.txt
+    git commit --quiet --message "test commit"
+    test "$(git rev-list --count HEAD)" -eq 1
   '

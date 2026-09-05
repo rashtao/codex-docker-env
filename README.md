@@ -52,6 +52,8 @@ npm --version
 codex --version
 openspec --version
 npm config get prefix
+git config --get user.name
+git config --get user.email
 sdk version
 sdk list java | grep -i temurin
 java -version
