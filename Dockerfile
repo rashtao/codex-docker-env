@@ -104,11 +104,6 @@ RUN install -d --owner=codex --group=codex --mode=0700 /home/codex/.codex \
         '[features]' \
         'fast_mode = false' \
         '' \
-        '[mcp_servers.codebase-memory-mcp]' \
-        'command = "/home/codex/.npm-global/bin/codebase-memory-mcp"' \
-        'args = []' \
-        'env_vars = ["CBM_CACHE_DIR"]' \
-        '' \
         '[tui]' \
         'status_line = ["model-with-reasoning", "run-state", "context-remaining", "five-hour-limit", "weekly-limit", "context-window-size", "total-input-tokens", "total-output-tokens", "task-progress", "approval-mode"]' \
         > /home/codex/.codex/config.toml \
