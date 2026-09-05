@@ -59,3 +59,9 @@ java -version
 
 `npm config get prefix` should be `/home/codex/.npm-global`, and `java -version`
 should report the Java 21 Temurin default.
+
+The image uses `/workspace/.codebase-memory-mcp` for CBM's account-wide cache,
+so it is preserved by the workspace mount. The Codex MCP entry explicitly
+forwards `CBM_CACHE_DIR`; Codex otherwise sanitizes that variable for MCP
+subprocesses and CBM can start with a conflicting default cache. Repository
+graph artifacts, when enabled, are stored separately under `.codebase-memory/`.
