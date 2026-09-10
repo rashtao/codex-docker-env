@@ -91,6 +91,9 @@ RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
     && test -n "$candidate" \
     && sdk install java "$candidate"
 
+RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" && sdk install java '25-graalce'
+RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" && sdk install java '21.0.2-graalce'
+
 RUN source "$SDKMAN_DIR/bin/sdkman-init.sh" \
     && java_21="$(find "$SDKMAN_DIR/candidates/java" -maxdepth 1 -type d -name '21.*-tem' -printf '%f\n' | head -n 1)" \
     && test -n "$java_21" \
