@@ -6,6 +6,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # that contacts npm or SDKMAN is intentionally isolated in its own layer.
 RUN dnf -y upgrade --refresh \
     && dnf -y install \
+        wget \
         bubblewrap \
         ca-certificates \
         curl \
